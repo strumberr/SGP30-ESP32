@@ -4,10 +4,13 @@
 #import webrepl
 #webrepl.start()
 
-
+print("initializing sensor")
+print("wait 15 seconds")
 
 import uSGP30
 import machine
+import time
+
 
 I2C_SCL_GPIO = const(22)
 I2C_SDA_GPIO = const(21)
@@ -22,5 +25,16 @@ i2c = machine.I2C(-1,
 print(i2c.scan())
 sgp30 = uSGP30.SGP30(i2c)
 
-co2eq_ppm, tvoc_ppb = sgp30.measure_iaq()
-print(co2eq_ppm, tvoc_ppb)
+time_stupid = 0
+
+while True:
+    co2eq_ppm, tvoc_ppb = sgp30.measure_iaq()
+    print(co2eq_ppm, tvoc_ppb)
+    
+    csv=open("data.csv","at")
+    csv.write(f"{time_stupid},{co2eq_ppm},{tvoc_ppb}\n")
+    csv.close()
+    
+    time_stupid += 10
+    
+    time.sleep(10)
