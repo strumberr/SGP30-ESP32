@@ -4,4 +4,5 @@ This is a code snippet for the the SGP30 to run on an ESP32/ESP wroom 32 (eCO2 a
 
 # Connections
 
-
+## SDA = Pin 21
+## SCL = Pin 22
